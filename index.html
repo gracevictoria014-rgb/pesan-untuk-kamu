@@ -6,6 +6,7 @@
 <title>Untuk Kamu 🩵</title>
 
 <style>
+
     * {
         box-sizing: border-box;
     }
@@ -19,20 +20,31 @@
         overflow-x: hidden;
         overflow-y: auto;
         font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #8fc9e8, #b8dff2, #a9bfe3);
+        background: linear-gradient(
+            135deg,
+            #8fc9e8,
+            #b8dff2,
+            #a9bfe3
+        );
     }
 
     .container {
         width: 90%;
         max-width: 500px;
         text-align: center;
-        background: rgba(255,255,255,0.88);
+        background: rgba(255, 255, 255, 0.55);
         padding: 35px 25px;
         border-radius: 30px;
-        box-shadow: 0 15px 40px rgba(50, 110, 160, 0.25);
+        box-shadow:
+            0 15px 40px rgba(80, 150, 180, 0.2);
         position: relative;
         z-index: 2;
     }
+
+
+    /* =========================
+       BAGIAN AWAL
+       ========================= */
 
     .emoji {
         font-size: 65px;
@@ -53,14 +65,30 @@
 
     button {
         border: none;
-        background: linear-gradient(135deg, #358fbe, #62b8df);
+
+        background:
+            linear-gradient(
+                135deg,
+                #358fbe,
+                #62b8df
+            );
+
         color: white;
+
         padding: 14px 28px;
+
         border-radius: 50px;
+
         font-size: 16px;
+
         font-weight: bold;
+
         cursor: pointer;
-        box-shadow: 0 7px 18px rgba(50, 130, 180, 0.3);
+
+        box-shadow:
+            0 7px 18px
+            rgba(50, 130, 180, 0.3);
+
         transition: 0.3s;
     }
 
@@ -68,168 +96,510 @@
         transform: scale(1.08);
     }
 
+
+    /* =========================
+       AMPLOP SETELAH DIBUKA
+       ========================= */
+
+    .opened-envelope {
+        display: none;
+
+        font-size: 70px;
+
+        margin-bottom: 20px;
+
+        animation:
+            envelopeOpen
+            0.8s
+            ease;
+    }
+
+
+    /* =========================
+       PESAN
+       ========================= */
+
     #message {
         display: none;
+
         margin-top: 25px;
+
         color: #455a64;
+
         line-height: 1.8;
+
         font-size: 17px;
-        animation: fadeIn 1s ease;
+
+        animation:
+            fadeIn
+            1s
+            ease;
     }
+
+
+    /* =========================
+       RINTIK HUJAN
+       ========================= */
 
     .heart {
-        position: absolute;
-        bottom: -30px;
-        font-size: 20px;
-        animation: floatUp linear forwards;
-        opacity: 0.8;
+
+        position: fixed;
+
+        top: -40px;
+
+        font-size: 18px;
+
+        opacity: 0.7;
+
         z-index: 1;
+
+        pointer-events: none;
+
+        animation:
+            rainHeart
+            linear
+            forwards;
     }
 
+
     .small {
+
         margin-top: 20px;
+
         color: #78909c;
+
         font-size: 12px;
     }
 
+
+    /* =========================
+       ANIMASI
+       ========================= */
+
     @keyframes bounce {
+
         0%, 100% {
-            transform: translateY(0);
+            transform:
+                translateY(0);
         }
+
         50% {
-            transform: translateY(-12px);
+            transform:
+                translateY(-12px);
         }
     }
+
 
     @keyframes fadeIn {
+
         from {
+
             opacity: 0;
-            transform: translateY(15px);
+
+            transform:
+                translateY(15px);
         }
+
         to {
+
             opacity: 1;
-            transform: translateY(0);
+
+            transform:
+                translateY(0);
         }
     }
 
-    @keyframes floatUp {
-        from {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0.8;
+
+    @keyframes envelopeOpen {
+
+        0% {
+
+            opacity: 0;
+
+            transform:
+                scale(0.5)
+                rotate(-10deg);
         }
+
+        60% {
+
+            transform:
+                scale(1.15)
+                rotate(5deg);
+        }
+
+        100% {
+
+            opacity: 1;
+
+            transform:
+                scale(1)
+                rotate(0deg);
+        }
+    }
+
+
+    @keyframes rainHeart {
+
+        from {
+
+            transform:
+                translateY(-40px)
+                rotate(0deg);
+
+            opacity: 0;
+        }
+
+        15% {
+
+            opacity: 0.7;
+        }
+
         to {
-            transform: translateY(-110vh) rotate(360deg);
+
+            transform:
+                translateY(110vh)
+                rotate(180deg);
+
             opacity: 0;
         }
     }
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =========================
+     MUSIK
+     ========================= -->
+
 <audio id="sound" preload="auto">
-    <source src="sound_48_detik.mp3" type="audio/mpeg">
+
+    <source
+        src="sound_48_detik.mp3"
+        type="audio/mpeg">
+
 </audio>
+
+
 
 <div class="container">
 
-    <div class="emoji">💌</div>
 
-    <h1>Hallo, kamu!</h1>
+    <!-- =========================
+         BAGIAN AWAL
+         ========================= -->
 
-    <div class="subtitle">
-        Ada sesuatu yang sebenarnya mau aku bilang...
+    <div id="opening">
+
+        <div class="emoji">
+            💌
+        </div>
+
+
+        <h1>
+            Hallo, kamu!
+        </h1>
+
+
+        <div class="subtitle">
+
+            Ada sesuatu yang sebenarnya
+            mau aku bilang...
+
+        </div>
+
+
+        <button onclick="openMessage()">
+
+            Buka Pesannya 🙈
+
+        </button>
+
     </div>
 
-    <button onclick="openMessage()">
-        Buka Pesannya 🙈
-    </button>
+
+
+    <!-- =========================
+         AMPLOP TERBUKA
+         ========================= -->
+
+    <div
+        id="openedEnvelope"
+        class="opened-envelope">
+
+        💌
+
+    </div>
+
+
+
+    <!-- =========================
+         ISI PESAN
+         ========================= -->
 
     <div id="message">
-        <p>Hai kamu 👋🏻</p>
+
 
         <p>
-            Aku cuma mau bilang satu hal...
+            Hai kamu 👋🏻
+        </p>
+
+
+        <p>
+
+            Aku cuma mau bilang kalo aku bangga punya kamu
+
             <br>
-            <b>Jangan lupa senyum hari ini yaa 😊</b>
+
+            <b>
+                Jangan lupa jaga kesehatan ya
+            </b>
+
         </p>
 
-        <p>
-            Mungkin hari ini nggak selalu berjalan sesuai keinginanmu,
-            tapi kamu sudah melakukan yang terbaik.
-        </p>
 
         <p>
-            Jadi jangan terlalu keras sama diri sendiri ya.
-            Istirahat kalau capek, makan kalau lapar,
-            dan jangan lupa kalau...
+
+            Mungkin aku belum bisa menjadi pasangan
+            yang sempurna untukmu, aku sering 
+            berbuat salah dalam hal apapun.
+
         </p>
 
-        <p>
-            <b>Kamu itu berharga. 🩵</b>
-        </p>
 
         <p>
-            Semoga setelah baca pesan ini,
-            harimu jadi sedikit lebih baik. 🌷
+
+            Aku minta maaf akan ketidaksempurnaan itu.
+
+            Aku akan selalu berusaha untuk menjadi
+            versi terbaikku, dan aku pun akan selalu 
+            mencintaimu dalam versi manapun.
+
         </p>
+
+
+        <p>
+
+            <b>
+                Karena orang yang aku pilih itu KAMU 🩵
+            </b>
+
+        </p>
+
+
+        <p>
+
+            Semoga hari yang kamu jalani selalu baik,
+            dari segi apapun🌷
+
+        </p>
+
 
         <div style="font-size:30px;">
+
             🥰 🩵 🌸
+
         </div>
+
+
     </div>
 
+
+
     <div class="small">
+
         dari orang yang kamu panggil neng ✨
+
     </div>
+
 
 </div>
 
+
+
 <script>
 
+
+/* =========================
+   BUKA PESAN
+   ========================= */
+
 function openMessage() {
-    document.getElementById("message").style.display = "block";
 
-    document.querySelector("button").innerHTML =
-        "Pesannya sudah dibuka 🩵";
 
-    const sound = document.getElementById("sound");
+    /*
+       Hilangkan seluruh
+       bagian pembuka
+    */
+
+    document
+        .getElementById("opening")
+        .style.display = "none";
+
+
+    /*
+       Tampilkan amplop
+       yang sudah terbuka
+    */
+
+    document
+        .getElementById("openedEnvelope")
+        .style.display = "block";
+
+
+    /*
+       Tampilkan pesan
+    */
+
+    document
+        .getElementById("message")
+        .style.display = "block";
+
+
+    /*
+       Putar musik
+    */
+
+    const sound =
+        document.getElementById("sound");
+
     sound.currentTime = 0;
+
     sound.play();
 
-    createHearts(25);
+
+    /*
+       Mulai hujan emoji
+       yang terus menerus
+    */
+
+    startRain();
+
 }
 
-function createHearts(number) {
 
-    for (let i = 0; i < number; i++) {
 
-        let heart = document.createElement("div");
+/* =========================
+   MEMBUAT SATU RINTIK
+   ========================= */
 
-        heart.className = "heart";
+function createHeart() {
 
-        let hearts = ["🩵", "💙", "🤍", "🩷"];
 
-        heart.innerHTML =
-            hearts[Math.floor(Math.random() * hearts.length)];
+    let heart =
+        document.createElement("div");
 
-        heart.style.left = Math.random() * 100 + "vw";
 
-        heart.style.animationDuration =
-            (4 + Math.random() * 5) + "s";
+    heart.className =
+        "heart";
 
-        heart.style.fontSize =
-            (15 + Math.random() * 25) + "px";
 
-        document.body.appendChild(heart);
+    /*
+       Emoji yang akan turun
+    */
 
-        setTimeout(() => {
-            heart.remove();
-        }, 9000);
-    }
+    let hearts = [
+
+        "💙",
+        "🩵",
+        "💧",
+        "💙",
+        "🩵",
+        "💧"
+
+    ];
+
+
+    /*
+       Pilih emoji secara acak
+    */
+
+    heart.innerHTML =
+        hearts[
+            Math.floor(
+                Math.random()
+                * hearts.length
+            )
+        ];
+
+
+    /*
+       Posisi kiri acak
+    */
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+
+    /*
+       Ukuran acak
+    */
+
+    heart.style.fontSize =
+        (12 + Math.random() * 14)
+        + "px";
+
+
+    /*
+       Kecepatan jatuh acak
+    */
+
+    let duration =
+        5 + Math.random() * 5;
+
+
+    heart.style.animationDuration =
+        duration + "s";
+
+
+    /*
+       Masukkan ke halaman
+    */
+
+    document.body.appendChild(heart);
+
+
+    /*
+       Hapus setelah sampai bawah
+    */
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, duration * 1000);
+
 }
+
+
+
+/* =========================
+   HUJAN TERUS MENERUS
+   ========================= */
+
+function startRain() {
+
+
+    /*
+       Rintik baru muncul
+       setiap 300 milidetik
+    */
+
+    setInterval(() => {
+
+        createHeart();
+
+    }, 300);
+
+}
+
 
 </script>
+
 
 </body>
 </html>
